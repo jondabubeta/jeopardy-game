@@ -13,7 +13,7 @@ public class CategoryButton extends JButton {
             InputStream fontInputStream = CategoryButton.class.getResourceAsStream("swiss-911.ttf");
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
 
-            customFont = customFont.deriveFont(20f); 
+            customFont = customFont.deriveFont(30f); 
             setFont(customFont);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -23,13 +23,16 @@ public class CategoryButton extends JButton {
 
         setBackground(Color.WHITE);
 
-        setForeground(Color.RED); 
+        setForeground(Color.WHITE); 
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setOpaque(true); 
         setHorizontalAlignment(CENTER);
         setFocusPainted(false); 
-        setEnabled(false); 
+        setEnabled(true); 
+
+        Color backgroundColor = new Color(0x060CE9); 
+        setBackground(backgroundColor);
     }
 
     public Category getCategory() {

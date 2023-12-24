@@ -3,13 +3,22 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.List;
+
 
 public class GameBoard extends JFrame implements ActionListener {
     private CategoryButton[] categoryButtons;
     private Question[][] buttons;
     private DefaultTableModel tableModel;
+
+    static String currentDirectory = System.getProperty("user.dir");
+    String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
+    static String questionnairePath = currentDirectory + "/src/assets/fonts/questionnaires/q_genz.txt";
 
     public GameBoard(Category[] categories) {
         setTitle("Jeopardy Game");
@@ -17,45 +26,54 @@ public class GameBoard extends JFrame implements ActionListener {
         setSize(1000, 800);
         setLayout(new BorderLayout());
 
-        JToolBar toolbar = new JToolBar();
+        try {
+        	Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(40f);
 
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem setupMenuItem = new JMenuItem("Setup");
+            JToolBar toolbar = new JToolBar();
 
-        setupMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openSetupDialog();
-            }
-        });
+            JMenuBar menuBar = new JMenuBar();
+            JMenu fileMenu = new JMenu("File");
+            JMenuItem setupMenuItem = new JMenuItem("Setup");
 
-        fileMenu.add(setupMenuItem);
-        menuBar.add(fileMenu);
-        setJMenuBar(menuBar);
+            setupMenuItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-        JPanel gamePanel = new JPanel();
-        gamePanel.setLayout(new GridLayout(7, 6));
+                    openSetupDialog();
+                }
+            });
 
-        categoryButtons = new CategoryButton[6];
-        buttons = new Question[5][6]; 
+            fileMenu.add(setupMenuItem);
+            menuBar.add(fileMenu);
+            setJMenuBar(menuBar);
 
-        for (int col = 0; col < 6; col++) {
-            categoryButtons[col] = new CategoryButton(categories[col]);
-            gamePanel.add(categoryButtons[col]);
-        }
+            JPanel gamePanel = new JPanel();
+            gamePanel.setLayout(new GridLayout(7, 6)); 
 
-        for (int row = 0; row < 5; row++) {
+            categoryButtons = new CategoryButton[6];
+            buttons = new Question[5][6]; 
+
             for (int col = 0; col < 6; col++) {
-                int moneyValue = 100 * (row + 1);
-                
-                buttons[row][col] = new Question(categories[col], "$" + moneyValue);
-                buttons[row][col].addActionListener(this);
-                gamePanel.add(buttons[row][col]);
+                categoryButtons[col] = new CategoryButton(categories[col]);
+                categoryButtons[col].setFont(customFont);
+                gamePanel.add(categoryButtons[col]);
             }
-        }
 
-        add(gamePanel, BorderLayout.CENTER);
+            for (int row = 0; row < 5; row++) {
+                for (int col = 0; col < 6; col++) {
+                    int moneyValue = 100 * (row + 1);
+                    buttons[row][col] = new Question(categories[col], "$" + moneyValue);
+                    buttons[row][col].setFont(customFont);
+                    buttons[row][col].addActionListener(this);
+                    gamePanel.add(buttons[row][col]);
+                }
+            }
+
+            add(gamePanel, BorderLayout.CENTER);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -63,7 +81,6 @@ public class GameBoard extends JFrame implements ActionListener {
             Question clickedButton = (Question) e.getSource();
             Category category = clickedButton.getCategory();
 
-            // Display the question and answer in a dialog box
             String categoryName = category.getName();
             String question = category.getNextQuestion();
             String answer = category.getAnswer(question);
@@ -75,7 +92,7 @@ public class GameBoard extends JFrame implements ActionListener {
     }
 
     private void openSetupDialog() {
-        // Create a setup dialog
+
         JDialog setupDialog = new JDialog(this, "Setup Categories and Questions", true);
         setupDialog.setSize(800, 600);
         setupDialog.setLayout(new BorderLayout());
@@ -127,11 +144,9 @@ public class GameBoard extends JFrame implements ActionListener {
         setupDialog.setVisible(true);
     }
 
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Category[] categories = createCategories();
+            Category[] categories = createQuestionnaire();
             GameBoard gameBoard = new GameBoard(categories);
             gameBoard.setVisible(true);
         });
@@ -148,35 +163,47 @@ public class GameBoard extends JFrame implements ActionListener {
             }
         }
     }
-    
-    private static Category[] createCategories() {
-        // Create an array of Category objects with 6 categories, each containing 5 questions
-        Category[] categories = new Category[6];
 
-        categories[0] = new Category("Category 1",
-                new String[]{"Question 1-1", "Question 1-2", "Question 1-3", "Question 1-4", "Question 1-5"},
-                new String[]{"Answer 1-1", "Answer 1-2", "Answer 1-3", "Answer 1-4", "Answer 1-5"});
-
-        categories[1] = new Category("Category 2",
-                new String[]{"Question 2-1", "Question 2-2", "Question 2-3", "Question 2-4", "Question 2-5"},
-                new String[]{"Answer 2-1", "Answer 2-2", "Answer 2-3", "Answer 2-4", "Answer 2-5"});
-
-        categories[2] = new Category("Category 3",
-                new String[]{"Question 3-1", "Question 3-2", "Question 3-3", "Question 3-4", "Question 3-5"},
-                new String[]{"Answer 3-1", "Answer 3-2", "Answer 3-3", "Answer 3-4", "Answer 3-5"});
-
-        categories[3] = new Category("Category 4",
-                new String[]{"Question 4-1", "Question 4-2", "Question 4-3", "Question 4-4", "Question 4-5"},
-                new String[]{"Answer 4-1", "Answer 4-2", "Answer 4-3", "Answer 4-4", "Answer 4-5"});
-
-        categories[4] = new Category("Category 5",
-                new String[]{"Question 5-1", "Question 5-2", "Question 5-3", "Question 5-4", "Question 5-5"},
-                new String[]{"Answer 5-1", "Answer 5-2", "Answer 5-3", "Answer 5-4", "Answer 5-5"});
-
-        categories[5] = new Category("Category 6",
-                new String[]{"Question 6-1", "Question 6-2", "Question 6-3", "Question 6-4", "Question 6-5"},
-                new String[]{"Answer 6-1", "Answer 6-2", "Answer 6-3", "Answer 6-4", "Answer 6-5"});
-
-        return categories;
+    private static Category[] createQuestionnaire() {
+        Category[] Questionnaire = createQuestionnaireFromFile(questionnairePath);
+        return Questionnaire;
     }
+    
+    private static Category[] createQuestionnaireFromFile(String filePath) {
+        List<Category> categoryList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String categoryName = null;
+            List<String> questions = new ArrayList<>();
+            List<String> answers = new ArrayList<>();
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Category ")) {
+                    // Create a new category
+                    if (categoryName != null) {
+                        categoryList.add(new Category(categoryName, questions.toArray(new String[0]), answers.toArray(new String[0])));
+                        questions.clear();
+                        answers.clear();
+                    }
+                    categoryName = line.substring("Category ".length());
+                } else {
+                    // Parse question and answer
+                    String[] parts = line.split(", ");
+                    if (parts.length == 2) {
+                        questions.add(parts[0]);
+                        answers.add(parts[1]);
+                    }
+                }
+            }
+
+            if (categoryName != null) {
+                categoryList.add(new Category(categoryName, questions.toArray(new String[0]), answers.toArray(new String[0])));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return categoryList.toArray(new Category[0]);
+    }
+   
 }
