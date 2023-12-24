@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -8,12 +9,13 @@ public class CategoryButton extends JButton {
 
     public CategoryButton(Category category) {
         this.category = category;
-
+        String currentDirectory = System.getProperty("user.dir");
+        String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
         try {
-            InputStream fontInputStream = CategoryButton.class.getResourceAsStream("swiss-911.ttf");
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
-
-            customFont = customFont.deriveFont(30f); 
+            //InputStream fontInputStream = CategoryButton.class.getResourceAsStream("swiss-911.ttf");
+            //Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(50f);
+            customFont = customFont.deriveFont(40f); 
             setFont(customFont);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();

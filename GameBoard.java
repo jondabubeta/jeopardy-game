@@ -11,11 +11,10 @@ import java.io.FileReader;
 import java.util.List;
 
 
+@SuppressWarnings("serial")
 public class GameBoard extends JFrame implements ActionListener {
     private CategoryButton[] categoryButtons;
     private Question[][] buttons;
-    private DefaultTableModel tableModel;
-
     static String currentDirectory = System.getProperty("user.dir");
     String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
     static String questionnairePath = currentDirectory + "/src/assets/fonts/questionnaires/q_genz.txt";
@@ -23,13 +22,15 @@ public class GameBoard extends JFrame implements ActionListener {
     public GameBoard(Category[] categories) {
         setTitle("Jeopardy Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 800);
+
+        // Get the screen dimensions
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height); // Set the size to match the screen dimensions
+
         setLayout(new BorderLayout());
 
         try {
-        	Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(40f);
-
-            JToolBar toolbar = new JToolBar();
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(50f);
 
             JMenuBar menuBar = new JMenuBar();
             JMenu fileMenu = new JMenu("File");
@@ -38,7 +39,6 @@ public class GameBoard extends JFrame implements ActionListener {
             setupMenuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
                     openSetupDialog();
                 }
             });
@@ -48,10 +48,10 @@ public class GameBoard extends JFrame implements ActionListener {
             setJMenuBar(menuBar);
 
             JPanel gamePanel = new JPanel();
-            gamePanel.setLayout(new GridLayout(7, 6)); 
+            gamePanel.setLayout(new GridLayout(6, 6));
 
             categoryButtons = new CategoryButton[6];
-            buttons = new Question[5][6]; 
+            buttons = new Question[5][6];
 
             for (int col = 0; col < 6; col++) {
                 categoryButtons[col] = new CategoryButton(categories[col]);
@@ -72,7 +72,6 @@ public class GameBoard extends JFrame implements ActionListener {
             add(gamePanel, BorderLayout.CENTER);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -83,13 +82,15 @@ public class GameBoard extends JFrame implements ActionListener {
 
             String categoryName = category.getName();
             String question = category.getNextQuestion();
-            String answer = category.getAnswer(question);
+            // Create and display the question window
+            QuestionWindow questionWindow = new QuestionWindow(this, categoryName, question);
+            questionWindow.setVisible(true);
 
-            JOptionPane.showMessageDialog(this, categoryName + "\n\nQuestion: " + question + "\nAnswer: " + answer);
-
-            clickedButton.setBackground(Color.GRAY); 
+            // Change button color here if needed
+            clickedButton.setBackground(Color.GRAY);
         }
     }
+
 
     private void openSetupDialog() {
 
