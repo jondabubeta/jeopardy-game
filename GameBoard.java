@@ -2,14 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.List;
+import java.io.BufferedWriter;
 
 @SuppressWarnings("serial")
 public class GameBoard extends JFrame implements ActionListener {
     private CategoryButton[] categoryButtons;
     private Question[][] buttons;
+    private Category[] categories;
     static String currentDirectory = System.getProperty("user.dir");
     String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
     static String questionnairePath = currentDirectory + "/src/assets/fonts/questionnaires/q_genz.txt";
@@ -20,10 +26,10 @@ public class GameBoard extends JFrame implements ActionListener {
 
         // Get the screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height); // Set the size to match the screen dimensions
+        setSize(screenSize.width, screenSize.height); 
 
         setLayout(new BorderLayout());
-
+        this.categories = categories;
         try {
             Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(50f);
 
@@ -69,7 +75,22 @@ public class GameBoard extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
-
+    private void saveQuestionnaireToFile(Category[] categories, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Category category : categories) {
+                writer.write("Category " + category.getName());
+                writer.newLine();
+                String[] questions = category.getQuestions();
+                String[] answers = category.getAnswers();
+                for (int i = 0; i < questions.length; i++) {
+                    writer.write(questions[i] + ", " + answers[i]);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Question) {
             Question clickedButton = (Question) e.getSource();
@@ -86,6 +107,19 @@ public class GameBoard extends JFrame implements ActionListener {
         }
     }
 
+    private void updateCategoriesAndFile(Category[] categories, JTextField[][] questionFields) {
+        for (int col = 0; col < 6; col++) {
+            String[] newQuestions = new String[5];
+            for (int row = 0; row < 5; row++) {
+                newQuestions[row] = questionFields[row][col].getText();
+            }
+            categories[col].setQuestions(newQuestions);
+        }
+
+        // Save the updated Category objects to the file
+        saveQuestionnaireToFile(categories, questionnairePath);
+    }
+    
     private void openSetupDialog() {
 
         JDialog setupDialog = new JDialog(this, "Setup Categories and Questions", true);
@@ -102,11 +136,15 @@ public class GameBoard extends JFrame implements ActionListener {
             setupPanel.add(categoryFields[col]);
         }
 
-        JTextField[][] questionFields = new JTextField[5][6];
+        JTextField[][] questionFields = new JTextField[5][6]; 
 
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 6; col++) {
-                questionFields[row][col] = new JTextField();
+                String[] currentCategoryQuestions = categories[col].getQuestions();
+                String currentQuestion = (currentCategoryQuestions != null && row < currentCategoryQuestions.length)
+                        ? currentCategoryQuestions[row]
+                        : "";
+                questionFields[row][col] = new JTextField(currentQuestion);
                 setupPanel.add(questionFields[row][col]);
             }
         }
@@ -120,17 +158,8 @@ public class GameBoard extends JFrame implements ActionListener {
                     categoryButtons[col].setText(categoryFields[col].getText());
                 }
 
-                for (int row = 0; row < 5; row++) {
-                    for (int col = 0; col < 6; col++) {
-                        // Update your data model here based on user input
-                        // categories[col].setQuestion(row, questionFields[row][col].getText());
-                        // categories[col].setAnswer(row, answerFields[row][col].getText());
-                    }
-                }
-
-                // Save the updated data to the text file
-                saveQuestionnaireToFile(categoryFields, questionFields, questionnairePath);
-
+                updateCategoriesAndFile(categories, questionFields);
+                
                 setupDialog.dispose();
             }
         });
@@ -153,10 +182,10 @@ public class GameBoard extends JFrame implements ActionListener {
     }
 
     private static Category[] createQuestionnaire() {
-        Category[] questionnaire = createQuestionnaireFromFile(questionnairePath);
-        return questionnaire;
+        Category[] Questionnaire = createQuestionnaireFromFile(questionnairePath);
+        return Questionnaire;
     }
-
+    
     private static Category[] createQuestionnaireFromFile(String filePath) {
         List<Category> categoryList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -193,20 +222,5 @@ public class GameBoard extends JFrame implements ActionListener {
 
         return categoryList.toArray(new Category[0]);
     }
-
-    private void saveQuestionnaireToFile(JTextField[] categoryFields, JTextField[][] questionFields, String filePath) {
-        try (PrintWriter writer = new PrintWriter(filePath)) {
-            for (int col = 0; col < 6; col++) {
-                writer.println("Category " + categoryFields[col].getText());
-            }
-
-            for (int row = 0; row < 5; row++) {
-                for (int col = 0; col < 6; col++) {
-                    writer.println(questionFields[row][col].getText() + ", " /* Add answer here */);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+   
 }

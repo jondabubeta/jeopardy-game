@@ -21,7 +21,9 @@ public class Category {
         }
         return null; 
     }
-
+    public String[] getQuestions() {
+        return questions;
+    }
     public String getAnswer(String question) {
         int index = -1;
         for (int i = 0; i < questions.length; i++) {
@@ -35,7 +37,11 @@ public class Category {
         }
         return null; 
     }
-
+    
+    public String[] getAnswers() {
+        return answers;
+    }
+    
     public void setQuestions(String[] newQuestions) {
         this.questions = newQuestions;
         this.currentQuestionIndex = 0;
