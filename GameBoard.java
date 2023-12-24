@@ -2,13 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.List;
-
 
 @SuppressWarnings("serial")
 public class GameBoard extends JFrame implements ActionListener {
@@ -22,8 +18,9 @@ public class GameBoard extends JFrame implements ActionListener {
         setTitle("Jeopardy Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        // Get the screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height); 
+        setSize(screenSize.width, screenSize.height); // Set the size to match the screen dimensions
 
         setLayout(new BorderLayout());
 
@@ -80,14 +77,14 @@ public class GameBoard extends JFrame implements ActionListener {
 
             String categoryName = category.getName();
             String question = category.getNextQuestion();
-
+            // Create and display the question window
             QuestionWindow questionWindow = new QuestionWindow(this, categoryName, question);
             questionWindow.setVisible(true);
 
+            // Change button color here if needed
             clickedButton.setBackground(Color.GRAY);
         }
     }
-
 
     private void openSetupDialog() {
 
@@ -105,7 +102,7 @@ public class GameBoard extends JFrame implements ActionListener {
             setupPanel.add(categoryFields[col]);
         }
 
-        JTextField[][] questionFields = new JTextField[5][6]; 
+        JTextField[][] questionFields = new JTextField[5][6];
 
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 6; col++) {
@@ -125,9 +122,14 @@ public class GameBoard extends JFrame implements ActionListener {
 
                 for (int row = 0; row < 5; row++) {
                     for (int col = 0; col < 6; col++) {
-                        questionFields[row][col].setText("");
+                        // Update your data model here based on user input
+                        // categories[col].setQuestion(row, questionFields[row][col].getText());
+                        // categories[col].setAnswer(row, answerFields[row][col].getText());
                     }
                 }
+
+                // Save the updated data to the text file
+                saveQuestionnaireToFile(categoryFields, questionFields, questionnairePath);
 
                 setupDialog.dispose();
             }
@@ -151,10 +153,10 @@ public class GameBoard extends JFrame implements ActionListener {
     }
 
     private static Category[] createQuestionnaire() {
-        Category[] Questionnaire = createQuestionnaireFromFile(questionnairePath);
-        return Questionnaire;
+        Category[] questionnaire = createQuestionnaireFromFile(questionnairePath);
+        return questionnaire;
     }
-    
+
     private static Category[] createQuestionnaireFromFile(String filePath) {
         List<Category> categoryList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -165,6 +167,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Category ")) {
+                    // Create a new category
                     if (categoryName != null) {
                         categoryList.add(new Category(categoryName, questions.toArray(new String[0]), answers.toArray(new String[0])));
                         questions.clear();
@@ -172,6 +175,7 @@ public class GameBoard extends JFrame implements ActionListener {
                     }
                     categoryName = line.substring("Category ".length());
                 } else {
+                    // Parse question and answer
                     String[] parts = line.split(", ");
                     if (parts.length == 2) {
                         questions.add(parts[0]);
@@ -189,5 +193,20 @@ public class GameBoard extends JFrame implements ActionListener {
 
         return categoryList.toArray(new Category[0]);
     }
-   
+
+    private void saveQuestionnaireToFile(JTextField[] categoryFields, JTextField[][] questionFields, String filePath) {
+        try (PrintWriter writer = new PrintWriter(filePath)) {
+            for (int col = 0; col < 6; col++) {
+                writer.println("Category " + categoryFields[col].getText());
+            }
+
+            for (int row = 0; row < 5; row++) {
+                for (int col = 0; col < 6; col++) {
+                    writer.println(questionFields[row][col].getText() + ", " /* Add answer here */);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
