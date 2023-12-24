@@ -2,46 +2,45 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
+@SuppressWarnings("serial")
 public class CategoryButton extends JButton {
-    private Category category;
+	private Category category;
 
-    public CategoryButton(Category category) {
-        this.category = category;
-        String currentDirectory = System.getProperty("user.dir");
-        String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
-        try {
-            //InputStream fontInputStream = CategoryButton.class.getResourceAsStream("swiss-911.ttf");
-            //Font customFont = Font.createFont(Font.TRUETYPE_FONT, fontInputStream);
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(50f);
-            customFont = customFont.deriveFont(40f); 
-            setFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
+	public CategoryButton(Category category) {
+		this.category = category;
+		String currentDirectory = System.getProperty("user.dir");
+		String fontFilePath = currentDirectory + "/src/assets/fonts/swiss-911.ttf";
 
-        setText(category.getName());
+		try {
+			Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath)).deriveFont(50f);
+			customFont = customFont.deriveFont(40f);
+			setFont(customFont);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 
-        setBackground(Color.WHITE);
+		setText(category.getName());
 
-        setForeground(Color.WHITE); 
+		setBackground(Color.WHITE);
 
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        setOpaque(true); 
-        setHorizontalAlignment(CENTER);
-        setFocusPainted(false); 
-        setEnabled(true); 
+		setForeground(Color.WHITE);
 
-        Color backgroundColor = new Color(0x060CE9); 
-        setBackground(backgroundColor);
-    }
+		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		setOpaque(true);
+		setHorizontalAlignment(CENTER);
+		setFocusPainted(false);
+		setEnabled(true);
 
-    public Category getCategory() {
-        return category;
-    }
+		Color backgroundColor = new Color(0x060CE9);
+		setBackground(backgroundColor);
+	}
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,9 +22,8 @@ public class GameBoard extends JFrame implements ActionListener {
         setTitle("Jeopardy Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Get the screen dimensions
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height); // Set the size to match the screen dimensions
+        setSize(screenSize.width, screenSize.height); 
 
         setLayout(new BorderLayout());
 
@@ -82,11 +80,10 @@ public class GameBoard extends JFrame implements ActionListener {
 
             String categoryName = category.getName();
             String question = category.getNextQuestion();
-            // Create and display the question window
+
             QuestionWindow questionWindow = new QuestionWindow(this, categoryName, question);
             questionWindow.setVisible(true);
 
-            // Change button color here if needed
             clickedButton.setBackground(Color.GRAY);
         }
     }
@@ -153,18 +150,6 @@ public class GameBoard extends JFrame implements ActionListener {
         });
     }
 
-    private void updateGameBoard(Category[] categories) {
-        for (int col = 0; col < 6; col++) {
-            categoryButtons[col].setCategory(categories[col]);
-        }
-
-        for (int row = 0; row < 5; row++) {
-            for (int col = 0; col < 6; col++) {
-                buttons[row][col].setCategory(categories[col]);
-            }
-        }
-    }
-
     private static Category[] createQuestionnaire() {
         Category[] Questionnaire = createQuestionnaireFromFile(questionnairePath);
         return Questionnaire;
@@ -180,7 +165,6 @@ public class GameBoard extends JFrame implements ActionListener {
 
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Category ")) {
-                    // Create a new category
                     if (categoryName != null) {
                         categoryList.add(new Category(categoryName, questions.toArray(new String[0]), answers.toArray(new String[0])));
                         questions.clear();
@@ -188,7 +172,6 @@ public class GameBoard extends JFrame implements ActionListener {
                     }
                     categoryName = line.substring("Category ".length());
                 } else {
-                    // Parse question and answer
                     String[] parts = line.split(", ");
                     if (parts.length == 2) {
                         questions.add(parts[0]);
