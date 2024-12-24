@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Science",
+    "questions": [
+      {
+        "score": 100,
+        "question": "What is the chemical symbol for water?",
+        "answer": "H2O"
+      },
+      {
+        "score": 200,
+        "question": "What planet is known as the Red Planet?",
+        "answer": "Mars"
+      },
+      {
+        "score": 300,
+        "question": "What gas do plants absorb from the atmosphere?",
+        "answer": "Carbon Dioxide"
+      },
+      {
+        "score": 400,
+        "question": "What is the powerhouse of the cell?",
+        "answer": "Mitochondria"
+      },
+      {
+        "score": 500,
+        "question": "What is the speed of light?",
+        "answer": "299,792,458 meters per second"
+      }
+    ]
+  },
+  {
+    "name": "History",
+    "questions": [
+      {
+        "score": 100,
+        "question": "Who was the first President of the United States?",
+        "answer": "H2O"
+      },
+      {
+        "score": 200,
+        "question": "What year did World War I begin?",
+        "answer": "1914"
+      },
+      {
+        "score": 300,
+        "question": "Who was known as the \u0027Iron Lady\u0027?",
+        "answer": "Margaret Thatcher"
+      },
+      {
+        "score": 400,
+        "question": "What ancient wonder was located in Egypt?",
+        "answer": "The Great Pyramid of Giza"
+      },
+      {
+        "score": 500,
+        "question": "Who wrote the Declaration of Independence?",
+        "answer": "Thomas Jefferson"
+      }
+    ]
+  },
+  {
+    "name": "Geography",
+    "questions": [
+      {
+        "score": 100,
+        "question": "What is the capital of France?",
+        "answer": "Paris"
+      },
+      {
+        "score": 200,
+        "question": "What is the largest ocean on Earth?",
+        "answer": "Pacific Ocean"
+      },
+      {
+        "score": 300,
+        "question": "What river runs through Egypt?",
+        "answer": "Nile River"
+      },
+      {
+        "score": 400,
+        "question": "What is the smallest country in the world?",
+        "answer": "Vatican City"
+      },
+      {
+        "score": 500,
+        "question": "What continent is the Sahara Desert located on?",
+        "answer": "Africa"
+      }
+    ]
+  },
+  {
+    "name": "Math",
+    "questions": [
+      {
+        "score": 100,
+        "question": "What is 2 + 2?",
+        "answer": "4"
+      },
+      {
+        "score": 200,
+        "question": "What is the square root of 16?",
+        "answer": "4"
+      },
+      {
+        "score": 300,
+        "question": "What is the value of pi (rounded to 3.14)?",
+        "answer": "3.14"
+      },
+      {
+        "score": 400,
+        "question": "What is 7 multiplied by 8?",
+        "answer": "56"
+      },
+      {
+        "score": 500,
+        "question": "Solve for x: 3x + 5 \u003d 20.",
+        "answer": "5"
+      }
+    ]
+  },
+  {
+    "name": "Literature",
+    "questions": [
+      {
+        "score": 100,
+        "question": "Who wrote \u0027Romeo and Juliet\u0027?",
+        "answer": "William Shakespeare"
+      },
+      {
+        "score": 200,
+        "question": "Who is the author of \u00271984\u0027?",
+        "answer": "George Orwell"
+      },
+      {
+        "score": 300,
+        "question": "What is the first book of the Bible?",
+        "answer": "Genesis"
+      },
+      {
+        "score": 400,
+        "question": "Who wrote \u0027Moby-Dick\u0027?",
+        "answer": "Herman Melville"
+      },
+      {
+        "score": 500,
+        "question": "Who wrote \u0027Pride and Prejudice\u0027?",
+        "answer": "Jane Austen"
+      }
+    ]
+  },
+  {
+    "name": "Movies",
+    "questions": [
+      {
+        "score": 100,
+        "question": "Who directed \u0027Jurassic Park\u0027?",
+        "answer": "Steven Spielberg"
+      },
+      {
+        "score": 200,
+        "question": "Who played Jack in \u0027Titanic\u0027?",
+        "answer": "Leonardo DiCaprio"
+      },
+      {
+        "score": 300,
+        "question": "What movie features the line \u0027May the Force be with you\u0027?",
+        "answer": "Star Wars"
+      },
+      {
+        "score": 400,
+        "question": "What is the highest-grossing animated movie of all time?",
+        "answer": "The Lion King (2019)"
+      },
+      {
+        "score": 500,
+        "question": "Who won Best Actor for \u0027The Revenant\u0027?",
+        "answer": "Leonardo DiCaprio"
+      }
+    ]
+  }
+]

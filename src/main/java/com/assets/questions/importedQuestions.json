@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Make it singular",
+    "questions": [
+      {
+        "question": "Alumni",
+        "answer": "Alumnus",
+        "score": 100
+      },
+      {
+        "question": "Bison",
+        "answer": "Bison",
+        "score": 200
+      },
+      {
+        "question": "Strata",
+        "answer": "Stratum",
+        "score": 300
+      },
+      {
+        "question": "Codices",
+        "answer": "Codex",
+        "score": 400
+      },
+      {
+        "question": "Graffiti",
+        "answer": "Graffito",
+        "score": 500
+      }
+    ]
+  },
+  {
+    "name": "Science in Action",
+    "questions": [
+      {
+        "question": "This type of wave requires a medium to travel through and cannot propagate in a vacuum.",
+        "answer": "Sound",
+        "score": 100
+      },
+      {
+        "question": "This layer of Earth\u0027s atmosphere contains the ozone layer.",
+        "answer": "Stratosphere",
+        "score": 200
+      },
+      {
+        "question": "This element, commonly used in batteries, saw advances in recycling techniques to reduce mining impacts.",
+        "answer": "Lithium",
+        "score": 300
+      },
+      {
+        "question": "This part of the brain is responsible for regulating balance and coordination.",
+        "answer": "Cerebellum",
+        "score": 400
+      },
+      {
+        "question": "NASA successfully landed this lunar lander, the first U.S. moon landing in over 50 years.",
+        "answer": "Odysseus",
+        "score": 500
+      }
+    ]
+  },
+  {
+    "name": "Memes 2024 Edition",
+    "questions": [
+      {
+        "question": "This meme features a cute small rodent staring up in despair, paired with the song Woe Is Me!",
+        "answer": "Sad Hamster",
+        "score": 100
+      },
+      {
+        "question": "This meme involves a 2-month-old pygmy hippo known for her sassiness, gaining over 33 million views.",
+        "answer": "Moo Deng",
+        "score": 200
+      },
+      {
+        "question": "This meme features a certain animal and a fruit, used in political TikTok campaigns by the Ontario New Democratic Party.",
+        "answer": "Banana Cat",
+        "score": 300
+      },
+      {
+        "question": "This is Gen Z’s equivalent of elegance. Do you see how they do their makeup? (4 words)",
+        "answer": "Very demure, Very mindful",
+        "score": 400
+      },
+      {
+        "question": "This meme features a human-like dog wearing a grey sweater, blue jeans, and red sneakers, giving off a rather calm demeanor.",
+        "answer": "Chill Guy",
+        "score": 500
+      }
+    ]
+  },
+  {
+    "name": "Olympics",
+    "questions": [
+      {
+        "question": "These countries tied for the most gold medals at the 2024 Olympics, each securing 40.",
+        "answer": "China - United States",
+        "score": 100
+      },
+      {
+        "question": "The first modern Olympic Games were held in this city in 1896.",
+        "answer": "Athens",
+        "score": 200
+      },
+      {
+        "question": "The five Olympic rings represent the five _________",
+        "answer": "Continents",
+        "score": 300
+      },
+      {
+        "question": "The closing ceremony celebrated the transition to the next Summer Olympic host, this city.",
+        "answer": "Los Angeles",
+        "score": 400
+      },
+      {
+        "question": "This new sport  made its Olympic debut in Paris 2024 with one of its competitors introducing what people call the kangaroo-hop.",
+        "answer": "Breaking / Breakdancing",
+        "score": 500
+      }
+    ]
+  },
+  {
+    "name": "Who said what now!?",
+    "questions": [
+      {
+        "question": "I’m a childless cat lady.",
+        "answer": "Taylor Swift",
+        "score": 100
+      },
+      {
+        "question": "In Springfield, they’re eating the dogs. They’re eating the cats.",
+        "answer": "Donal Trump",
+        "score": 200
+      },
+      {
+        "question": "We need more emotional support hamsters in Congress.",
+        "answer": "Bernie Sanders",
+        "score": 300
+      },
+      {
+        "question": "I didn’t know I was running for president until Twitter told me.",
+        "answer": "Kanye West",
+        "score": 400
+      },
+      {
+        "question": "I can’t believe we invented a car that moonwalks.",
+        "answer": "Elon Musk",
+        "score": 500
+      }
+    ]
+  },
+  {
+    "name": "Current Events 2024",
+    "questions": [
+      {
+        "question": "This rapper\u0027s diss track Not Like Us topped Apple Music\u0027s global song chart in 2024.",
+        "answer": "Kendrick Lamar",
+        "score": 100
+      },
+      {
+        "question": "In 2024, this U.S. state was struck by a 4.8 magnitude earthquake, the strongest in over a century.",
+        "answer": "New Jersey",
+        "score": 200
+      },
+      {
+        "question": "This record-breaking world tour by Taylor Swift concluded in 2024, earning billions and becoming the highest-grossing tour of all time.",
+        "answer": "Eras",
+        "score": 300
+      },
+      {
+        "question": "Inspired by 2023’s “Barbenheimer,” this mashup name blends two blockbuster films that were released around the same time in 2024.",
+        "answer": "Glicked (Gladiator + Wicked)",
+        "score": 400
+      },
+      {
+        "question": "In 2024, this iconic British rock band reunited for a highly anticipated reunion tour, thrilling fans globally.",
+        "answer": "Oasis",
+        "score": 500
+      }
+    ]
+  }
+]
